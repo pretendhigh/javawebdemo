@@ -29,7 +29,6 @@ node("mapleaves") {
     echo "============================== 2.代码编译打包阶段 =============================="
     try {
       sh "ls"
-      sh "ls target"
       sh "mvn clean package -s settings.xml -Dmaven.test.skip=true"
       sh "ls"
       sh "ls target"      
@@ -53,8 +52,8 @@ node("mapleaves") {
       """        
     }
   }
-  stage('部署 recommend-system 到 infra-k8s') {
-    echo "============================== 4.部署 recommend-system ${gitBranch} 分支到 infra-k8s =============================="
+  stage('部署 $APP_NAME 到 k8s') {
+    echo "============================== 4.部署 $APP_NAME ${gitBranch} 分支到 k8s =============================="
     if (gitBranch == 'master') {      
       input "确认要部署到生产环境吗？"
       NAMESPACE = "pro"
